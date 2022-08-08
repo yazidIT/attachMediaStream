@@ -38,7 +38,7 @@ module.exports = function (stream, el, options) {
         });
     }
 
-    if (adapter.browserDetails.browser === 'safari') {
+    if (adapter.default.browserDetails.browser === 'safari') {
         element.setAttribute('playsinline', true);
     }
 
