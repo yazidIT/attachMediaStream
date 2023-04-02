@@ -3,6 +3,7 @@
   "version": "2.1.0",
   "description": "cross-browser way to attach a media stream to a video element.",
   "main": "attachmediastream.js",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "https://github.com/HenrikJoreteg/attachMediaStream"
@@ -20,7 +21,15 @@
     "webrtc-adapter": "^8.1.1"
   },
   "devDependencies": {
-    "browserify": "2.x",
+    "@babel/core": "^7.21.4",
+    "@babel/preset-env": "^7.21.4",
+    "babelify": "^10.0.0",
+    "browserify": "^16.5.1",
     "webrtc-adapter": "^8.1.1"
+  },
+  "scripts": {
+    "lint": "jshint .",
+    "validate": "npm ls",
+    "browserify": "browserify -t [ babelify ] test/test.js -o attachmediastream.bundle.js"
   }
 }

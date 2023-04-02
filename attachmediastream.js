@@ -1,6 +1,6 @@
-var adapter = require('webrtc-adapter');
+import adapter from 'webrtc-adapter';
 
-module.exports = function (stream, el, options) {
+var attachMediaStream = function (stream, el, options) {
     var item;
     var element = el;
     var opts = {
@@ -38,10 +38,12 @@ module.exports = function (stream, el, options) {
         });
     }
 
-    if (adapter.default.browserDetails.browser === 'safari') {
+    if (adapter.browserDetails.browser === 'safari') {
         element.setAttribute('playsinline', true);
     }
 
     element.srcObject = stream;
     return element;
 };
+
+export default attachMediaStream;
