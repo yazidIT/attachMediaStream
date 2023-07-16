@@ -1,6 +1,6 @@
 import Browserify from 'browserify';
 import fs from 'fs';
-import esmify from 'esmify';
+import babelify from 'babelify';
 
 var bundler = Browserify({
     // Required watchify args
@@ -8,14 +8,25 @@ var bundler = Browserify({
     packageCache: {}, 
     fullPaths: false,
     // Browserify Options
+    standalone: 'attachMediaStream',
     entries: './attachmediastream.js',
     debug: true,
-    plugin: [
-        [ esmify, { /* ... options ... */ } ]
-    ]
+    plugin: []
 });
 
-bundler.bundle()
+bundler
+    .transform(babelify.configure({
+        presets : ["@babel/preset-env"]
+    }))
+    .bundle((err, src) => {
+        if(err) {
+            console.log('[error]', err);
+            return;
+        }
+        if(src) {
+            console.log("Bundling Ok")
+        }
+    })
     .pipe(fs.createWriteStream('attachmediastream.bundle.js'));
 
 // bundle.add('./attachmediastream');
